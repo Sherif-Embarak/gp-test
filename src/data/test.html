@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+</head>
+<body>
+
+</body>
+<script src="datalib.min.js"></script>
+<script type="text/javascript">
+	var csv_data = dl.load({url: 'test.csv'});
+var data = dl.read(csv_data, {type: 'csv', parse: 'auto'});
+console.log(data);
+</script>
+</html>

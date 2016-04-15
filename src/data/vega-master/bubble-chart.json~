@@ -1,0 +1,432 @@
+{
+  "width": 600,
+  "height": 300,
+  "data": [
+    {
+      "name": "obesity",
+      "values": [
+        {
+          "x": 95,
+          "y": 95,
+          "z": 13.8,
+          "name": "BE",
+          "cont": "EU"
+        },
+        {
+          "x": 86.5,
+          "y": 102.9,
+          "z": 14.7,
+          "name": "DE",
+          "cont": "EU"
+        },
+        {
+          "x": 80.8,
+          "y": 91.5,
+          "z": 15.8,
+          "name": "FI",
+          "cont": "EU"
+        },
+        {
+          "x": 80.4,
+          "y": 102.5,
+          "z": 12,
+          "name": "NL",
+          "cont": "EU"
+        },
+        {
+          "x": 80.3,
+          "y": 86.1,
+          "z": 11.8,
+          "name": "SE",
+          "cont": "EU"
+        },
+        {
+          "x": 78.4,
+          "y": 70.1,
+          "z": 16.6,
+          "name": "ES",
+          "cont": "EU"
+        },
+        {
+          "x": 74.2,
+          "y": 68.5,
+          "z": 14.5,
+          "name": "FR",
+          "cont": "EU"
+        },
+        {
+          "x": 73.5,
+          "y": 83.1,
+          "z": 10,
+          "name": "NO",
+          "cont": "NO"
+        },
+        {
+          "x": 71,
+          "y": 93.2,
+          "z": 24.7,
+          "name": "UK",
+          "cont": "EU"
+        },
+        {
+          "x": 69.2,
+          "y": 57.6,
+          "z": 10.4,
+          "name": "IT",
+          "cont": "EU"
+        },
+        {
+          "x": 68.6,
+          "y": 20,
+          "z": 16,
+          "name": "RU",
+          "cont": "RU"
+        },
+        {
+          "x": 65.5,
+          "y": 126.4,
+          "z": 35.3,
+          "name": "US",
+          "cont": "US"
+        },
+        {
+          "x": 65.4,
+          "y": 50.8,
+          "z": 28.5,
+          "name": "HU",
+          "cont": "EU"
+        },
+        {
+          "x": 63.4,
+          "y": 51.8,
+          "z": 15.4,
+          "name": "PT",
+          "cont": "EU"
+        },
+        {
+          "x": 64,
+          "y": 82.9,
+          "z": 31.3,
+          "name": "NZ",
+          "cont": "NZ"
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "nice": true,
+      "range": "width",
+      "zero": false,
+      "domain": [
+        60,
+        100
+      ]
+    },
+    {
+      "name": "y",
+      "zero": false,
+      "range": "height",
+      "domain": [
+        10,
+        150
+      ]
+    },
+    {
+      "name": "cont",
+      "type": "ordinal",
+      "domain": {
+        "data": "obesity",
+        "field": "cont"
+      },
+      "range": "category20"
+    }
+  ],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "offset": 5,
+      "title": "Daily Fat Intake",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "offset": 5,
+      "ticks": 6,
+      "title": "Daily Sugar Intake",
+      "grid": true
+    }
+  ],
+  "marks": [
+    {
+      "type": "rule",
+      "properties": {
+        "enter": {
+          "x": {
+            "field": {
+              "group": "x"
+            }
+          },
+          "x2": {
+            "field": {
+              "group": "width"
+            }
+          },
+          "y": {
+            "scale": "y",
+            "value": 50
+          },
+          "stroke": {
+            "value": "black"
+          },
+          "strokeWidth": {
+            "value": 1
+          },
+          "strokeDash": {
+            "value": [
+              5
+            ]
+          }
+        }
+      }
+    },
+    {
+      "type": "rule",
+      "properties": {
+        "enter": {
+          "y": {
+            "field": {
+              "group": "y"
+            }
+          },
+          "y2": {
+            "field": {
+              "group": "height"
+            }
+          },
+          "x": {
+            "scale": "x",
+            "value": 65
+          },
+          "stroke": {
+            "value": "black"
+          },
+          "strokeWidth": {
+            "value": 1
+          },
+          "strokeDash": {
+            "value": [
+              5
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "circles",
+      "type": "symbol",
+      "from": {
+        "data": "obesity"
+      },
+      "properties": {
+        "enter": {
+          "x": {
+            "scale": "x",
+            "field": "x"
+          },
+          "y": {
+            "scale": "y",
+            "field": "y"
+          },
+          "fill": {
+            "scale": "cont",
+            "field": "cont"
+          },
+          "fillOpacity": {
+            "value": 0.8
+          },
+          "size": {
+            "field": "z",
+            "mult": 50
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": {
+        "mark": "circles"
+      },
+      "properties": {
+        "enter": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          },
+          "dy": {
+            "field": "height"
+          },
+          "fill": {
+            "value": "white"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "text": {
+            "field": "datum.name"
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "x": {
+            "value": 300
+          },
+          "font": {
+            "value": ""
+          },
+          "fontSize": {
+            "value": 16
+          },
+          "fill": {
+            "value": "black"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "value": "Sugar and Fat Intake Per Country"
+          },
+          "y": {
+            "value": -40
+          }
+        }
+      },
+      "type": "text"
+    },
+    {
+      "properties": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "x": {
+            "value": 300
+          },
+          "font": {
+            "value": ""
+          },
+          "fontSize": {
+            "value": 10
+          },
+          "fill": {
+            "value": "black"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "value": "Source: Euromonitor and OECD"
+          },
+          "y": {
+            "value": -20
+          }
+        }
+      },
+      "type": "text"
+    },
+    {
+      "properties": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "x": {
+            "value": 525
+          },
+          "font": {
+            "value": ""
+          },
+          "fontSize": {
+            "value": 10
+          },
+          "fill": {
+            "value": "black"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "value": "Safe Sugar Intake 50g/day"
+          },
+          "y": {
+            "value": 200
+          }
+        }
+      },
+      "type": "text"
+    },
+    {
+      "properties": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "x": {
+            "value": 135
+          },
+          "font": {
+            "value": ""
+          },
+          "fontSize": {
+            "value": 10
+          },
+          "fill": {
+            "value": "black"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "value": "Safe Fat Intake 65g/day"
+          },
+          "y": {
+            "value": 0
+          }
+        }
+      },
+      "type": "text"
+    }
+  ],
+  "legends": [
+    {
+      "fill": "cont",
+      "title": "Political Entity"
+    }
+  ]
+}

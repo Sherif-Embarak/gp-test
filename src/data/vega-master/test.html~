@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <script src="node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/d3-geo-projection/d3.geo.projection.min.js"></script>
+    <script src="node_modules/topojson/topojson.js"></script>
+    <script src="d3.layout.cloud.js"></script>
+    <script src="vega.min.js"></script>
+ 
+  <title>Vega tutorial</title>
+</head>
+ 
+<script type="text/javascript">
+	function parse(spec) {
+  		vg.parse.spec(spec, function(chart) { chart({el:"#vis1" , renderer: "svg" }).update(); });
+	}
+	parse("horizon_chart.json");
+</script>
+
+   <body>
+    <div id="vis1"></div>
+  </body>
+
+  <script type="text/javascript">
+    function parse(spec) {
+      vg.parse.spec(spec, function (chart) {
+        var view = chart({"el": "#vis2"}).update();
+      });
+    }
+    parse("streamgraph.json");
+  </script>
+
+  <body>
+    <div id="vis2"></div>
+  
+</body>
+  <script type="text/javascript">
+    function parse(spec) {
+      vg.parse.spec(spec, function (chart) {
+        var view = chart({"el": "#vis3"}).update();
+      });
+    }
+    parse("barchart.json");
+  </script>
+  <body>
+    <div id="vis3"></div>
+
+<script type="text/javascript">
+    function parse(spec) {
+      vg.parse.spec(spec, function (chart) {
+        var view = chart({"el": "#vis4"}).update();
+      });
+    }
+    parse("bubble-chart.json");
+  </script>
+  <body>
+    <div id="vis4"></div>
+  
+</body>
+
+<body>
+    <div id="vis"></div>
+  </body>
+  <script type="text/javascript">
+    function log(name, value) {
+      console.log(name, value);
+    }
+
+    function parse(spec) {
+      vg.parse.spec(spec, function (chart) {
+        chart({"el": "#vis"})
+          // .onSignal('scatterplot', log)
+          // .onSignal('brush_start', log)
+          // .onSignal('brush_end', log)
+          .update()
+      });
+    }
+    parse("linked_views.json");
+  </script>
+
+<body>
+    <div id="vis7"></div>
+  </body>
+  <script type="text/javascript">
+    function log(name, value) {
+      console.log(name, value);
+    }
+
+    function parse(spec) {
+      vg.parse.spec(spec, function (chart) {
+        chart({"el": "#vis7"})
+          // .onSignal('scatterplot', log)
+          // .onSignal('brush_start', log)
+          // .onSignal('brush_end', log)
+          .update()
+      });
+    }
+    parse("lol.json");
+  </script>
+
+
+</html>

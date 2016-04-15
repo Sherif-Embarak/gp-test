@@ -1,0 +1,275 @@
+{
+  "data": [
+    {
+      "name": "gdp",
+      "url": "gdp.csv",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "agriculture_2010": "number",
+          "industry_2010": "number"
+        }
+      }
+    },
+    {
+      "name": "countries",
+      "url": "ne_10m_admin_0_countries.json",
+      "format": {"type": "topojson", "feature": "ne_10m_admin_0_countries"},
+      "transform": [
+        {
+          "type": "geopath",
+          "projection": "winkel3",
+          "scale": 150
+        },
+        {
+          "type": "lookup",
+          "on": "gdp",
+          "onKey": "iso_a2",
+          "keys": ["properties.ISO_A2"],
+          "as": ["gdp"],
+          "default": {"agriculture_2010": -99, "industry_2010": -99}
+        }
+      ]
+    }
+  ],
+
+  "signals": [
+    {
+      "name": "scatterplot",
+      "init": "{}",
+      "streams": [
+        {
+          "type": "@scatterplot:mousedown",
+          "expr": "eventGroup('scatterplot')"
+        }
+      ]
+    },
+    {
+      "name": "brush_start",
+      "init": {"x": 0, "y": 0},
+      "streams": [
+        {
+          "type": "mousedown",
+          "expr": "{x: clamp(eventX(), 0, 400), y: clamp(eventY(), 0, 400)}"
+        }
+      ]
+    },
+    {
+      "name": "brush_end",
+      "init": {"x": 0, "y": 0},
+      "streams": [
+        {
+          "type": "mousedown, [mousedown, window:mouseup] > window:mousemove",
+          "expr": "{x: clamp(eventX(), 0, 400), y: clamp(eventY(), 0, 400)}"
+        }
+      ]
+    }
+  ],
+
+  "predicates": [
+    {
+      "name": "xrange",
+      "type": "in",
+      "item": {"arg": "x"},
+      "range": [{"signal": "brush_start.x"}, {"signal": "brush_end.x"}],
+      "scale": {
+        "name": "xscale",
+        "invert": true,
+        "scope": {"signal": "scatterplot"}
+      }
+    },
+    {
+      "name": "yrange",
+      "type": "in",
+      "item": {"arg": "y"},
+      "range": [{"signal": "brush_start.y"}, {"signal": "brush_end.y"}],
+      "scale": {
+        "name": "yscale",
+        "invert": true,
+        "scope": {"signal": "scatterplot"}
+      }
+    },
+    {
+      "name": "inrange",
+      "type": "and",
+      "operands": [{"predicate": "xrange"}, {"predicate": "yrange"}]
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "name": "scatterplot",
+
+      "properties": {
+        "enter": {
+          "x": {"value": 0},
+          "y": {"value": 0},
+          "width": {"value": 400},
+          "height": {"value": 400},
+          "fill": {"value": "transparent"}
+        }
+      },
+
+      "scales": [
+        {
+          "name": "xscale",
+          "type": "linear",
+          "domain": {
+            "data": "gdp",
+            "field": ["agriculture_2010", "industry_2010"]
+          },
+          "range": "width",
+          "nice": true
+        },
+        {
+          "name": "yscale",
+          "type": "linear",
+          "domain": {
+            "data": "gdp",
+            "field": ["agriculture_2010", "industry_2010"]
+          },
+          "range": "height",
+          "nice": true
+        }
+      ],
+
+      "axes": [
+        {
+          "type": "x",
+          "scale": "xscale",
+          "orient": "bottom",
+          "title": "Agriculture as a percentage of GDP (2010)"
+        },
+        {
+          "type": "y",
+          "scale": "yscale",
+          "orient": "left",
+          "title": "Industry as a percentage of GDP (2010)"
+        }
+      ],
+
+      "marks": [
+        {
+          "type": "rect",
+          "description": "Brush",
+          "properties": {
+            "enter": {
+              "fill": {"value": "#636363"},
+              "fillOpacity": {"value": 0.2}
+            },
+            "update": {
+              "x": {"signal": "brush_start.x"},
+              "x2": {"signal": "brush_end.x"},
+              "y": {"signal": "brush_start.y"},
+              "y2": {"signal": "brush_end.y"}
+            }
+          }
+        },
+        {
+          "type": "symbol",
+          "description": "Points",
+          "from": {"data": "gdp"},
+          "properties": {
+            "enter": {
+              "x": {
+                "field": "agriculture_2010",
+                "scale": "xscale"
+              },
+              "y": {
+                "field": "industry_2010",
+                "scale": "yscale"
+              },
+              "size": {"value": 49},
+              "fillOpacity": {"value": 0.8}
+            },
+            "update": {
+              "fill": {
+                "rule": [
+                  {
+                    "predicate": {
+                      "name": "inrange",
+                      "x": {"field": "agriculture_2010"},
+                      "y": {"field": "industry_2010"}
+                    },
+                    "value": "#de2d26"
+                  },
+                  {"value": "#636363"}
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "type": "group",
+      "name": "map",
+
+      "properties": {
+        "enter": {
+          "x": {"value": 420},
+          "y": {"value": 0},
+          "width": {"value": 960},
+          "height": {"height": 500}
+        }
+      },
+
+      "marks": [
+        {
+          "type": "path",
+          "description": "Map",
+          "from": {"data": "countries"},
+          "properties": {
+            "enter": {
+              "path": {"field": "layout_path"},
+              "stroke": {"value": "#636363"},
+              "strokeWidth": {"value": 0.5}
+            },
+            "update": {
+              "fill": {
+                "rule": [
+                  {
+                    "predicate": {
+                      "name": "inrange",
+                      "x": {"field": "gdp.agriculture_2010"},
+                      "y": {"field": "gdp.industry_2010"}
+                    },
+                    "value": "#de2d26"
+                  },
+                  {"value": "#f0f0f0"}
+                ]
+              },
+              "fillOpacity": {
+                "rule": [
+                  {
+                    "predicate": {
+                      "name": "inrange",
+                      "x": {"field": "gdp.agriculture_2010"},
+                      "y": {"field": "gdp.industry_2010"}
+                    },
+                    "value": 0.8
+                  },
+                  {"value": 1}
+                ]
+              }
+            }
+          }
+        },
+        {
+          "type": "rect",
+          "description": "Map border",
+          "properties": {
+            "enter": {
+              "width": {"value": 960},
+              "height": {"value": 500},
+              "stroke": {"value": "black"},
+              "strokeWidth": {"value": 0.5}
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

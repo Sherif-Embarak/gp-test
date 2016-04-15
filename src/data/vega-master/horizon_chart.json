@@ -1,0 +1,182 @@
+{
+  "width": 1000,
+  "height": 100,
+  "padding": {"top": 10, "right": 10, "bottom": 50, "left": 10},
+
+  "signals": [
+    {"name": "width", "init": 1000},
+    {"name": "height", "init": 100},
+    {
+      "name": "layers",
+      "init": 2,
+      "streams": [
+        {"type": "click", "expr": "1 + (layers % 4)"}
+      ]
+    },
+    {
+      "name": "vheight",
+      "init": {"expr": "height * layers"},
+      "streams": [
+        {"type": "layers, height", "expr": "height * layers"}
+      ]
+    },
+    {
+      "name": "opacity",
+      "init": {"expr": "1 / layers"},
+      "streams": [
+        {"type": "layers", "expr": "1 / layers"}
+      ]
+    }
+  ],
+
+  "data": [
+    {
+      "name": "layer_indices",
+      "values": [0, 1, 2, 3],
+      "transform": [
+        {
+          "type": "filter",
+          "test": "datum.data < layers"
+        },
+        {
+          "type": "formula",
+          "field": "offset",
+          "expr": "datum.data * -height"
+        }
+      ]
+    },
+    {
+      "name": "vrsk_stock",
+      "format": {
+        "type": "csv",
+        "parse": {"date": "date", "close_zscore": "number"}
+      },
+      "url": "VRSK.csv",
+      "transform": [
+        {
+          "type": "formula",
+          "field": "close_zscore_abs",
+          "expr": "abs(datum.close_zscore)"
+        }
+      ]
+    },
+    {
+      "name": "vrsk_stock_pos",
+      "source": "vrsk_stock",
+      "transform": [
+        {
+          "type": "formula",
+          "field": "close_zscore_abs",
+          "expr": "if(datum.close_zscore > 0, abs(datum.close_zscore), 0)"
+        }
+      ]
+    },
+    {
+      "name": "vrsk_stock_neg",
+      "source": "vrsk_stock",
+      "transform": [
+        {
+          "type": "formula",
+          "field": "close_zscore_abs",
+          "expr": "if(datum.close_zscore < 0, abs(datum.close_zscore), 0)"
+        }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "xScale",
+      "type": "time",
+      "domain": {"data": "vrsk_stock", "field": "date"},
+      "range": "width"
+    },
+    {
+      "name": "yScale",
+      "type": "linear",
+      "domain": {"data": "vrsk_stock", "field": "close_zscore_abs"},
+      "range": [{"signal": "vheight"}, 0],
+      "nice": true
+    }
+  ],
+
+  "axes": [
+    {
+      "type": "x",
+      "scale": "xScale",
+      "title": "Date",
+      "format": "%b %y",
+      "offset": 1
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "group",
+      "properties": {
+        "enter": {
+          "width": {"signal": "width"},
+          "height": {"signal": "height"},
+          "clip": {"value": true}
+        }
+      },
+      "marks": [
+        {
+          "type": "group",
+          "from": {"data": "layer_indices"},
+          "properties": {
+            "update": {
+              "y": {"field": "offset"}
+            }
+          },
+          "marks": [
+            {
+              "type": "area",
+              "from": {"data": "vrsk_stock_pos"},
+              "properties": {
+                "enter": {
+                  "interpolate": {"value": "monotone"},
+                  "x": {"scale": "xScale", "field": "date"},
+                  "fill": {"value": "#3182bd"}
+                },
+                "update": {
+                  "y": {"scale": "yScale", "field": "close_zscore_abs"},
+                  "y2": {"scale": "yScale", "value": 0},
+                  "fillOpacity": {"signal": "opacity"}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "from": {"data": "layer_indices"},
+          "properties": {
+            "update": {
+              "y": {"field": "offset"}
+            }
+          },
+          "marks": [
+            {
+              "type": "area",
+              "from": {"data": "vrsk_stock_neg"},
+              "properties": {
+                "enter": {
+                  "interpolate": {"value": "monotone"},
+                  "x": {"scale": "xScale", "field": "date"},
+                  "fill": {"value": "#de2d26"}
+                },
+                "update": {
+                  "y": {"scale": "yScale", "field": "close_zscore_abs"},
+                  "y2": {"scale": "yScale", "value": 0},
+                  "fillOpacity": {"signal": "opacity"}
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
