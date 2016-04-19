@@ -11,17 +11,24 @@
 
 
 <body>
-<script src="../data/datalib.min.js"></script>
-<script src="algebra/base.js"></script>
+
 <script src="../data/d3-master/d3.min.js"></script>
+<script src="../data/datalib.min.js"></script>
+<script src="Canvas-Parser.js"></script>
+<script src="algebra/base.js"></script>
 <script src="scales/base.js"></script>
 <script src="statistics/base.js"></script>
 <script src="variables/base.js"></script>
 <script src="parse.js"></script>
 <script src="../data/parse.js"></script>
 <script >
+    pars_core(import_json('data.json'));
+    var s=new Scales
+    var l=new Line
+    console.log({"Line":s.line_to_drow()});
 
-pars_core(import_json('data.json'));
+
+
 
 </script>
 </body>

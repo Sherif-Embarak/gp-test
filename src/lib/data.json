@@ -1,7 +1,8 @@
 {
-  "width": 400,
-  "height": 200,
-  "padding": {"top": 10, "left": 30, "bottom": 30, "right": 10},
+  "width": 600,
+  "height": 600,
+  "padding": {"top": 0, "left": 0, "bottom": 0, "right": 0},
+  "margin":{"top": 35, "left": 35, "bottom": 35, "right": 35},
   "data": [
     {
       "name": "table",
@@ -22,15 +23,21 @@
   "scales": [
     {
       "name": "x",
-      "type": "ordinal",
+      "type": "linear",
       "range": "width",
-      "domain": {"data": "table", "field": "x"}
+      "domain": {"data": "table", "field": "sanDiego"}
+    },
+    {
+      "name": "x",
+      "type": "linear",
+      "range": "width",
+      "domain": {"data": "table", "field": "kansasCty"}
     },
     {
       "name": "y",
       "type": "linear",
       "range": "height",
-      "domain": {"data": "table", "field": "y"},
+      "domain": {"data": "table", "field": "buffalo"},
       "nice": true
     }
   ],
