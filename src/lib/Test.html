@@ -99,6 +99,12 @@
 pars_core(import_json('data.json'));
 var s=new Scales
 var l=s.line_to_drow();
+var a=[]
+var j=0;
+for(var i=0;i< l.length;i++) {
+    for(var k=0;k< l[i].length;k++,j++)
+      a[j]=l[i][k]
+}
 var obj = {
     "id": "canvas1",
     "Axes": [
@@ -112,8 +118,8 @@ var obj = {
             "height": 600,
             "width": 600,
             "grid": true
-       }
- ,
+        }
+        ,
         {
             "type": "y",
             "orientation": "left",
@@ -139,18 +145,17 @@ var obj = {
             "fillColor": "gray"
         }],
     "Diamond": [{
-            "x": 67,
-            "y": 534,
-            "color": "Blue"
-        }
+        "x": 67,
+        "y": 534,
+        "color": "Blue"
+    }
     ],
-    "Line": l
+    "Line": a
 };
-pars_core(import_json('data.json'));
-  var s=new Scales
-   var obj2={"Line":s.line_to_drow()};
-   console.log(obj);
-   Canvas_Parse(obj);
+
+    Canvas_Parse(obj);
+
+
 
 
 
