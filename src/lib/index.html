@@ -21,15 +21,14 @@
 <script src="variables/base.js"></script>
 <script src="parse.js"></script>
 <script src="../data/parse.js"></script>
-<script >
-    pars_core(import_json('data.json'));
-    var s=new Scales
-    var l=new Line
-    console.log({"Line":s.line_to_drow()});
-
-
-
-
+<script>
+//var a=import_csv('../data/test.csv');
+//console.log(a);
+    var sc=d3.scale.linear().domain([0,15]).range([-30,120]);
+    for(var i=0;i<16;i++)
+    {
+        console.log(Math.ceil(sc(i)));
+    }
 </script>
 </body>
 </html>

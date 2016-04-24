@@ -20,30 +20,32 @@
       ]
     }
   ],
+  "transform":[
+    {
+    "column_name" : "sanDiego",
+    "fun_name": "log" ,
+     "new_column_name":"new_column"
+  }
+  ],
   "scales": [
     {
       "name": "x",
-      "type": "linear",
+      "type": "time",
       "range": "width",
-      "domain": {"data": "table", "field": "sanDiego"}
-    },
-    {
-      "name": "x",
-      "type": "linear",
-      "range": "width",
-      "domain": {"data": "table", "field": "kansasCty"}
+      "domain": {"data": "stocks", "field": "date"}
     },
     {
       "name": "y",
       "type": "linear",
       "range": "height",
-      "domain": {"data": "table", "field": "buffalo"},
-      "nice": true
+      "nice": true,
+      "domain": {"data": "stocks", "field": "price"}
     }
+
   ],
   "axes": [
-    {"type": "x", "scale": "x"},
-    {"type": "y", "scale": "y"}
+    {"type": "x", "scale": "x","field":"date","ticks" : 12 , "grid": true , "orientation": "bottom"},
+    {"type": "y", "scale": "y","field":"price","ticks" : 16 , "grid": true , "orientation": "left"}
   ],
   "marks": [
     {

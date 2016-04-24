@@ -14,10 +14,12 @@
 <script src="Canvas-Parser.js"></script>
 <script src="algebra/base.js"></script>
 <script src="scales/base.js"></script>
+<script src="coordinates/base.js"></script>
 <script src="statistics/base.js"></script>
 <script src="variables/base.js"></script>
 <script src="parse.js"></script>
 <script src="../data/parse.js"></script>
+
 <script>
 //    var x = 5, y = 5, x1= 5,y1=30;
 //    console.log(Math.ceil(d3.scale.linear().domain([5,140]).range([35,565])(13)));
@@ -105,33 +107,15 @@ for(var i=0;i< l.length;i++) {
     for(var k=0;k< l[i].length;k++,j++)
       a[j]=l[i][k]
 }
+var ax=[]
+var sc=d3.scale.linear().domain([0,15]).range([-30,120]);
+for(var i=0;i<16;i++)
+{
+    ax.push(Math.ceil(sc(i)));
+}
 var obj = {
     "id": "canvas1",
-    "Axes": [
-        {
-            "type": "x",
-            "orientation": "bottom",
-            "values": [27, 54, 81, 108, 135, 27, 54, 81, 108, 135, 108, 135, 27, 54, 81, 108, 135, 27, 54],
-            "min": 5,
-            "max": 140,
-            "margin": 35,
-            "height": 600,
-            "width": 600,
-            "grid": true
-        }
-        ,
-        {
-            "type": "y",
-            "orientation": "left",
-            "values": [27, 54, 81, 108, 135, 27, 54, 81, 108, 135, 108, 135, 27, 54, 81, 108, 135, 27, 54],
-            "min": 5,
-            "max": 140,
-            "margin": 35,
-            "height": 600,
-            "width": 600,
-            "grid": true
-        }
-    ],
+    "Axes": return_axis,
     "Point": [
         {
             "x": 35,
@@ -152,6 +136,7 @@ var obj = {
     ],
     "Line": a
 };
+//console.log(return_axis);
 
     Canvas_Parse(obj);
 

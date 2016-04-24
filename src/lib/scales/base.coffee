@@ -9,7 +9,7 @@ class Scales
 
   define_type: (scale_obj ,canv_obj , data) =>
     if scale_obj.type
-     eval 'this.'+scale_obj.type+'(scale_obj.domain.field, scale_obj.range, canv_obj, data);'
+      this.d3_scale(scale_obj.type,scale_obj.domain.field, scale_obj.range, canv_obj, data);
 
   scaling: (scale_obj,canv_obj,data) =>
     i=0
@@ -23,26 +23,42 @@ class Scales
     result
 
   returned_line=[]
-  linear: (name_field ,scale_range, canv_obj , data) =>
+  d3_scale: (scale_type,name_field ,scale_range, canv_obj , data) =>
+    #console.log data
     scaled_obj={"scaled_data_x":[],"scaled_data_y":[],"data_arr":[],"canvs_obj":{}}
     all_values=@compose_values(data)
-    result_obj={"field":"","scaled_values":[],"columns":[]}
+    result_obj={"field":"","scaled_values":[],"rows":[]}
     arr=@get_field(name_field , data)
     scaled_data_y=[]
-
-    resultY=d3.scale.linear().domain([d3.min(all_values) ,d3.max(all_values)]).range([canv_obj["height"] - canv_obj["margin"] , canv_obj["margin"] ])
+    #console.log d3.min(all_values)+" "+d3.max(all_values)
+#    resultY=d3.scale.linear().domain([d3.min(all_values) ,d3.max(all_values)]).range([canv_obj["height"] - canv_obj["margin"] , canv_obj["margin"] ])
+    if(scale_type == "time")
+      resultY = d3[scale_type].scale()
+    else
+      resultY = d3.scale[scale_type]()
+    resultY = resultY["domain"]([d3.min(all_values) ,d3.max(all_values)])
+    resultY = resultY["range"]([canv_obj["height"] - canv_obj["margin"] , canv_obj["margin"] ])
     i=0
+    #console.log arr
     while i < arr.length
       scaled_data_y.push(resultY(arr[i]))
       i++;
     result_obj.field=name_field
-    result_obj.columns=data[0].headers
+    result_obj.rows=data.rows_name
     result_obj.scaled_values=scaled_data_y
     #console.log scaled_data_y
     scaled_data_x=[]
-    resultX=d3.scale.linear().domain([0,result_obj.columns.length-1]).range([canv_obj["margin"],canv_obj["width"] - canv_obj["margin"]])
+#    resultX=d3.scale.linear().domain([0,result_obj.columns.length-1]).range([canv_obj["margin"],canv_obj["width"] - canv_obj["margin"]])
+    if(scale_type == "time")
+      resultX = d3[scale_type].scale()
+    else
+      resultX = d3.scale[scale_type]()
+    #console.log result_obj.rows
+    resultX = resultX["domain"]([0,result_obj.rows.length-1])
+    resultX = resultX["range"]([canv_obj["margin"],canv_obj["width"] - canv_obj["margin"]])
     j=0
-    while j < result_obj.columns.length
+    #console.log result_obj
+    while j < result_obj.scaled_values.length
       scaled_data_x.push(resultX(j))
       j++;
     #console.log scaled_data_x
@@ -65,11 +81,12 @@ class Scales
       path.startX=scaled_obj.scaled_data_x[k]
       path.endX=scaled_obj.scaled_data_x[k+1]
       path.endY=scaled_obj.scaled_data_y[k+1]
-      path.width=Math.abs(scaled_obj.data_arr[k+1])*(2/10000)*scaled_obj.canvs_obj["width"]
+      #path.width=Math.abs(scaled_obj.data_arr[k+1])*(2/10000)*scaled_obj.canvs_obj["width"]
       line.push(path)
       k++
 #    console.log line
     returned_line.push(line)
+    console.log returned_line
     returned_line
 
 
@@ -83,9 +100,10 @@ class Scales
   get_field : (name_field, data) =>
     arr = []
     i = 0
-    while i < data.length
-      if data[i].name == name_field
-        arr = data[i].values
+    #console.log data
+    while i<data.columns_name.length
+      if data.columns_name[i] == name_field
+        arr = data.columns[i-1]
       i++
     arr
 
@@ -93,7 +111,7 @@ class Scales
   compose_values : (data) =>
     arr=[]
     i=0
-    while i<data.length
-      arr=arr.concat(data[i].values)
+    while i<data.columns.length
+      arr=arr.concat(data.columns[i])
       i++
     arr
