@@ -1,9 +1,7 @@
 # Webstorm specific files
 *.idea/*
 
-# output js and map files
-*.js
-*.map
+
 
 # Logs
 logs

@@ -32,20 +32,20 @@
       "name": "x",
       "type": "time",
       "range": "width",
-      "domain": {"data": "stocks", "field": "date"}
+      "domain": {"data": "stocks", "field": "sanDiego"}
     },
     {
       "name": "y",
       "type": "linear",
       "range": "height",
       "nice": true,
-      "domain": {"data": "stocks", "field": "price"}
+      "domain": {"data": "stocks", "field": "kansasCty"}
     }
 
   ],
   "axes": [
-    {"type": "x", "scale": "x","field":"date","ticks" : 12 , "grid": true , "orientation": "bottom"},
-    {"type": "y", "scale": "y","field":"price","ticks" : 16 , "grid": true , "orientation": "left"}
+    {"type": "x", "scale": "x","field":"kansasCty","ticks" : 12 , "grid": true , "orientation": "bottom"},
+    {"type": "y", "scale": "y","field":"sanDiego","ticks" : 16 , "grid": true , "orientation": "left"}
   ],
   "marks": [
     {
