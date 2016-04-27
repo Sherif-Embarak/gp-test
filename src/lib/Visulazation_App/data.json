@@ -22,10 +22,10 @@
   ],
   "transform":[
     {
-    "column_name" : "sanDiego",
-    "fun_name": "log" ,
-     "new_column_name":"new_column"
-  }
+      "column_name" : "sanDiego",
+      "fun_name": "log" ,
+      "new_column_name":"new_column"
+    }
   ],
   "scales": [
     {

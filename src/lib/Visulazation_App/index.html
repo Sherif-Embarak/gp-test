@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title> Vis App </title>
+      <script src="../../data/d3-master/d3.min.js"></script>
+      <script src="../../data/datalib.min.js"></script>
+      <script src="../Canvas-Parser.js"></script>
+      <script src="../algebra/base.js"></script>
+      <script src="../scales/base.js"></script>
+      <script src="../coordinates/base.js"></script>
+      <script src="../statistics/base.js"></script>
+      <script src="../variables/base.js"></script>
+      <script src="../parse.js"></script>
+      <script src="../../data/parse.js"></script>
+    <link rel="stylesheet" href="css/Styles.css">
+    <script src="js/angular.min.js" charset="utf-8" ></script>
+    <link rel="stylesheet" href="css/jsoneditor.min.css">
+    <script src="main.js" charset="utf-8"></script>
+    <script src="js/jsoneditor.min.js" charset="utf-8" ></script>
+    <script src="js/ng-jsoneditor.js" charset="utf-8" ></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <style>
+    .canvas_div{
+      width:55%;
+      border:solid #F4EBE9;
+      float:right;
+      height: 100%;
+    }
+    .editor_div{
+      width:45%;
+      float:left;
+    }
+    .browse_data{
+      width:170px;
+    }
+    </style>
+    <link rel="stylesheet" href="css/custom_alert_box.css">
+    <script src="js/custom_alert_box.js" charset="utf-8" ></script>
+    <script>
+      var footers = '<button class="btn btn-large btn-default" style=\'margin-right: 10px;\' onclick="file_value()">Load</button><button class="btn btn-large btn-default" onclick="Alert.ok()">Cancel</button>' ;
+      var Alert = new CustomAlert();
+    </script>
+  </head>
+  <body ng-app="ngApp">
+    <div class="window" id="bdy">
+        <!-- .toolbar-header sits at the top of your app -->
+        <header class="toolbar toolbar-header">
+            <div class="toolbar-actions">
+                <div class="btn-group" >
+                    <button class="btn btn-large btn-default">
+                        <span class="icon icon-home"></span>
+                    </button>
+                </div>
+                <div class="btn-group">
+                  <button class="btn btn-large btn-default">
+                    <input type="file"  class="icon icon-folder" style="height: 14px; width: 14px; outerline:0;" multiple="multiple" id="my-input"  />
+                  </button>
+                    <!-- <button type="button" class="btn btn-primary" >Load</button> -->
+                    <button class="btn btn-large btn-default" onclick="Alert.render('Are You Sure You want to load This File ?.', footers)">
+                        <span class="icon icon-dropbox"></span>
+                    </button>
+                </div>
+
+            </div>
+        </header>
+
+
+        <!-- Your app's content goes inside .window-content -->
+        <div class="window-content">
+            <div class="pane-group">
+                <div class="pane pane-sm sidebar">
+                    <nav class="nav-group">
+                        <h5 class="nav-group-title">Charts</h5>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #ecd77f"></span>
+                    Scatter Plot
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #1ab2ff"></span>
+                    Area Chart
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #950B02"></span>
+                    Line Chart
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #3aa80a"></span>
+                    Bar Chart
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #fc4c6d"></span>
+                    Box Plot
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #a347d1"></span>
+                    Contour Plot
+                  </span>
+                  <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #5bd46d"></span>
+                    Histogram
+                  </span>
+                        <span class="nav-group-item">
+                    <span class="icon icon-record" style="color: #f5ae3e"></span>
+                    Parallel Coordinates
+                  </span>
+                    </nav>
+                </div>
+                <div class="pane">
+                <div id="pane_1" class="split content" style="height:710px;">
+                    <div class="title" style="border-bottom: solid; height: 30px; border-color: #f5f5f4;">
+                        <span style="font-size: 15px; margin-top: 4px"> Workspace </span>
+                        <a class="pull-right icon icon-arrows-ccw" style="margin-right: 10px; margin-top: 7px" title="Clear"></a>
+
+
+                    </div>
+
+                      <div ng-controller="ngCtrl" class="editor_div">
+                        <div ng-jsoneditor="onLoad" ng-model="obj.data" options="obj.options" style="width: 100%; height: 300px;"></div>
+
+                        <button type="button" class="btn btn-primary" ng-click="changeOptions()"><i class="fa fa-check-circle"></i> change options</button>
+
+                        <pre style="display:none;">{{pretty(obj.data)}}</pre>
+                        <button type="button" class="btn btn-primary"  ng-click="save()"> save </button>
+
+                      </div>
+
+                    <div class="canvas_div">
+                        <canvas id="canvas1" width="600" height="600"></canvas>
+                    </div>
+
+                </div>
+
+                </div>
+                <div id="dialogoverlay"></div>
+                <div id="dialogbox">
+                  <div>
+                    <div id="dialogboxhead"></div>
+                    <div id="dialogboxbody"></div>
+                    <div id="dialogboxfoot"></div>
+                  </div>
+                </div>
+        </div>
+    </div>
+    <script>
+    var json = {"Array": [1, 2, 3], "Boolean": true, "Null": null, "Number": 123, "Object": {"a": "b", "c": "d"}, "String": "Hello World"};
+    var data_save = "";
+        angular.module('ngApp', ['ng.jsoneditor']).controller('ngCtrl', function ($scope , $http) {
+            $scope.obj = {data: json, options: {mode: 'tree'}};
+            $scope.onLoad = function (instance) {
+                instance.expandAll();
+            };
+            $scope.changeOptions = function () {
+                $scope.obj.options.mode = $scope.obj.options.mode == 'tree' ? 'code' : 'tree';
+            };
+            //other
+            $scope.pretty = function (obj) {
+                return angular.toJson(obj, true);
+            }
+            $scope.save = function(){
+                data_save =  angular.toJson($scope.obj.data , true);
+                //save data
+                alert(data_save);
+            }
+        });
+    </script>
+    <script>
+      var window_height = window.innerHeight;
+      var window_width = window.innerWidth;
+      document.getElementById('bdy').style.width = window_width;
+      document.getElementById('bdy').style.height = window_height;
+    </script>
+    <script src="js/load_files.js" charset="utf-8"></script>
+        </div>
+  </body>
+  <script>
+      pars_core(import_json('data.json'));
+      var s=new Scales
+      var l=s.line_to_drow();
+      var a=[]
+      var j=0;
+      for(var i=0;i< l.length;i++) {
+          for(var k=0;k< l[i].length;k++,j++)
+              a[j]=l[i][k]
+      }
+      var ax=[]
+      var sc=d3.scale.linear().domain([0,15]).range([-30,120]);
+      for(var i=0;i<16;i++)
+      {
+          ax.push(Math.ceil(sc(i)));
+      }
+      var obj = {
+          "id": "canvas1",
+          "Axes": return_axis,
+          "Point": [
+              {
+                  "x": 35,
+                  "y": 565,
+                  "radius": 4,
+                  "startAngle": 0,
+                  "endAngle": 360,
+                  "anticlockwise": false,
+                  "color": "Black",
+                  "width": 2,
+                  "fillColor": "gray"
+              }],
+          "Diamond": [{
+              "x": 67,
+              "y": 534,
+              "color": "Blue"
+          }
+          ],
+          "Line": a
+      };
+      //console.log(return_axis);
+
+      Canvas_Parse(obj);
+
+
+
+
+
+  </script>
+</html>

@@ -19,7 +19,7 @@ var pars_core = function (json_object)
    //console.log(json_object);
     var variable = new Variable();
     var scaled_obj=[];
-    var data_table = data_parsing('../data/test.csv');
+    var data_table = data_parsing('../../data/test.csv');
     var coord = new Coordinate();
     var color=["Red","Orange","Yellow"]
     var canvas_prop={"width":0,"height":0,"padding":{"top": 0, "left": 0, "bottom": 0, "right": 0},"margin":{"top": 0, "left": 0, "bottom": 0, "right": 0}};
