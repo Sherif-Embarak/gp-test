@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "tsp.js",
+  "sourceRoot": "",
+  "sources": [
+    "tsp.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;;AAAA"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "mean.js",
+  "sourceRoot": "",
+  "sources": [
+    "mean.coffee"
+  ],
+  "names": [],
+  "mappings": "AAOA,IAAA,GAAA;EAAA;;AAAA,GAAA,GAAM,SAAA;AACJ,MAAA;EADK;SACL;AADI"
+}

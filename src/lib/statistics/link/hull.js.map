@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "hull.js",
+  "sourceRoot": "",
+  "sources": [
+    "hull.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAQA;AAAA,MAAA;;EAAA,IAAA,GAAO,SAAA,GAAA;AAAP"
+}

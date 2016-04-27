@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "spead.js",
+  "sourceRoot": "",
+  "sources": [
+    "spead.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,MAAA,GAAS,SAAA,GAAA;AAAT"
+}

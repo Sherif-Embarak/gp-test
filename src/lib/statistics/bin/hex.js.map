@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "hex.js",
+  "sourceRoot": "",
+  "sources": [
+    "hex.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,GAAA,GAAM,SAAA,GAAA;AAAN"
+}

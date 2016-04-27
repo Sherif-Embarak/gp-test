@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "median.js",
+  "sourceRoot": "",
+  "sources": [
+    "median.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,MAAA,GAAS,SAAA,GAAA;AAAT"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "linear.js",
+  "sourceRoot": "",
+  "sources": [
+    "linear.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,MAAA,GAAS,SAAA,GAAA;AAAT"
+}

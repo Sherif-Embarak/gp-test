@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "delaunay.js",
+  "sourceRoot": "",
+  "sources": [
+    "delaunay.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAQA;AAAA,MAAA;;EAAA,QAAA,GAAW,SAAA,GAAA;AAAX"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "min.js",
+  "sourceRoot": "",
+  "sources": [
+    "min.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAOA;AAAA,MAAA,MAAA;IAAA;;EAAA,GAAA,GAAM,SAAA;AACJ,QAAA;IADK;WACL,IAAI,CAAC,GAAL,aAAS,WAAT;EADI;;EAGN,CAAA,GAAE,CAAC,CAAC,EAAF;;EACF,OAAO,CAAC,GAAR,CAAY,GAAA,aAAI,CAAJ,CAAZ;AAJA"
+}

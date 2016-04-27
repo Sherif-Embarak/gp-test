@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "sacle_test.js",
+  "sourceRoot": "",
+  "sources": [
+    "sacle_test.coffee"
+  ],
+  "names": [],
+  "mappings": "AACA,IAAA;;AAAA,KAAA,GAAQ,SAAC,GAAD;AACN,MAAA;EAAA,QAAA,GAAW,EAAE,CAAC,KAAM,CAAA,GAAG,CAAC,IAAJ,CAAT,CAAA;EACX,QAAA,GAAW,QAAS,CAAA,QAAA,CAAT,CAAmB,GAAG,CAAC,MAAvB;SACX,QAAA,GAAW,QAAS,CAAA,OAAA,CAAT,CAAkB,GAAG,CAAC,KAAtB;AAHL"
+}

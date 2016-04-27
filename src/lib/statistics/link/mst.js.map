@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "mst.js",
+  "sourceRoot": "",
+  "sources": [
+    "mst.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,GAAA,GAAM,SAAA,GAAA;AAAN"
+}

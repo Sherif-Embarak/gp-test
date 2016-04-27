@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "proportion.js",
+  "sourceRoot": "",
+  "sources": [
+    "proportion.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,UAAA,GAAa,SAAA,GAAA;AAAb"
+}

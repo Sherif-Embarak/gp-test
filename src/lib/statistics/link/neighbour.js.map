@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "neighbour.js",
+  "sourceRoot": "",
+  "sources": [
+    "neighbour.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAOA;AAAA,MAAA;;EAAA,QAAA,GAAW,SAAA,GAAA;AAAX"
+}

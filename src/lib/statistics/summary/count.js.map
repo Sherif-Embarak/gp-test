@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "count.js",
+  "sourceRoot": "",
+  "sources": [
+    "count.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,KAAA,GAAQ,SAAA,GAAA;AAAR"
+}

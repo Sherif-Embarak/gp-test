@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "quantile.js",
+  "sourceRoot": "",
+  "sources": [
+    "quantile.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,QAAA,GAAW,SAAA,GAAA;AAAX"
+}

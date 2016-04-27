@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "voronoi.js",
+  "sourceRoot": "",
+  "sources": [
+    "voronoi.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,OAAA,GAAU,SAAA,GAAA;AAAV"
+}

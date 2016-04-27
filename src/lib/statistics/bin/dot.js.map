@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "dot.js",
+  "sourceRoot": "",
+  "sources": [
+    "dot.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,GAAA,GAAM,SAAA,GAAA;AAAN"
+}

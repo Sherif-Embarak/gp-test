@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "spline.js",
+  "sourceRoot": "",
+  "sources": [
+    "spline.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAMA;AAAA,MAAA;;EAAA,MAAA,GAAS,SAAA,GAAA;AAAT"
+}
